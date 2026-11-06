@@ -1,0 +1,23 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Enums\Role;
+use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
+class AdminSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $admin = User::firstOrNew(['email' => 'admin@gnotopia.test']);
+
+        $admin->forceFill([
+            'name' => 'Admin',
+            'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
+            'role' => Role::Admin,
+            'email_verified_at' => now(),
+        ])->save();
+    }
+}

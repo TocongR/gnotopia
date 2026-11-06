@@ -13,9 +13,17 @@ enum Role: string
         return ucfirst($this->value);
     }
 
-    /** Roles a person may pick for themselves when registering. */
     public static function selfAssignable(): array
     {
         return [self::Student, self::Instructor];
+    }
+
+    public function dashboardRoute(): string
+    {
+        return match ($this) {
+            self::Student => 'student.dashboard',
+            self::Instructor => 'instructor.dashboard',
+            self::Admin => 'admin.dashboard',
+        };
     }
 }
