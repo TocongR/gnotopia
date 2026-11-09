@@ -80,9 +80,13 @@ export default function Edit({ course, categories }) {
 
                         <div className="bg-white p-6 shadow-sm sm:rounded-lg">
                             <h3 className="font-semibold text-gray-900">Content</h3>
-                            <p className="mt-2 text-sm text-gray-600">
-                                Modules and lessons are managed here in the next step.
-                            </p>
+                            <p className="mt-2 text-sm text-gray-600">{course.modules_count} module(s)</p>
+                            <Link
+                                href={route('instructor.courses.content', course.id)}
+                                className="mt-3 inline-block text-sm font-medium text-indigo-600 hover:underline"
+                            >
+                                Manage modules and lessons →
+                            </Link>
                         </div>
 
                         <div className="bg-white p-6 shadow-sm sm:rounded-lg">

@@ -27,4 +27,13 @@ class Module extends Model
     {
         return $this->hasMany(Quiz::class)->orderBy('position');
     }
+
+    public function nextItemPosition(): int
+    {
+        // Lessons and quizzes share one sequence inside a module.
+        return max(
+            (int) Lesson::where('module_id', $this->id)->max('position'),
+            (int) Quiz::where('module_id', $this->id)->max('position'),
+        ) + 1;
+    }
 }
