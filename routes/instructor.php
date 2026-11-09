@@ -5,6 +5,7 @@ use App\Http\Controllers\Instructor\CourseController;
 use App\Http\Controllers\Instructor\CoursePublishController;
 use App\Http\Controllers\Instructor\LessonController;
 use App\Http\Controllers\Instructor\ModuleController;
+use App\Http\Controllers\Instructor\QuizController;
 use App\Http\Controllers\Instructor\ReorderModuleItemsController;
 use App\Http\Controllers\Instructor\ReorderModulesController;
 use Illuminate\Support\Facades\Route;
@@ -22,11 +23,15 @@ Route::middleware(['auth', 'not.suspended', 'role:instructor'])
         Route::delete('courses/{course}/publish', [CoursePublishController::class, 'destroy'])
             ->name('courses.unpublish');
 
-        // Course content: modules and lessons
+        // Course content: modules, lessons and quizzes
         Route::get('courses/{course}/content', CourseContentController::class)->name('courses.content');
         Route::put('courses/{course}/modules/reorder', ReorderModulesController::class)->name('courses.modules.reorder');
         Route::resource('courses.modules', ModuleController::class)->only(['store', 'update', 'destroy'])->shallow();
         Route::put('modules/{module}/items/reorder', ReorderModuleItemsController::class)->name('modules.items.reorder');
+
         Route::resource('modules.lessons', LessonController::class)
+            ->only(['create', 'store', 'edit', 'update', 'destroy'])->shallow();
+
+        Route::resource('modules.quizzes', QuizController::class)
             ->only(['create', 'store', 'edit', 'update', 'destroy'])->shallow();
     });

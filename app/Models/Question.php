@@ -20,6 +20,6 @@ class Question extends Model
 
     public function options(): HasMany
     {
-        return $this->hasMany(Option::class);
+        return $this->hasMany(Option::class)->orderBy('id');
     }
 }
