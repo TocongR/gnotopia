@@ -36,9 +36,14 @@ export default function ModuleCard({ courseModule, index, total, onMove }) {
         router.put(route('instructor.modules.items.reorder', courseModule.id), { items }, { preserveScroll: true });
     };
 
-    const removeLesson = (id) => {
-        if (window.confirm('Delete this lesson?')) {
-            router.delete(route('instructor.lessons.destroy', id), { preserveScroll: true });
+    const removeItem = (item) => {
+        const name = item.type === 'lesson' ? 'lesson' : 'quiz';
+
+        if (window.confirm(`Delete this ${name}?`)) {
+            router.delete(
+                route(item.type === 'lesson' ? 'instructor.lessons.destroy' : 'instructor.quizzes.destroy', item.id),
+                { preserveScroll: true },
+            );
         }
     };
 
@@ -131,7 +136,17 @@ export default function ModuleCard({ courseModule, index, total, onMove }) {
                                         </button>
                                     </>
                                 ) : (
-                                    <span className="px-2 text-xs text-gray-400">Quiz editor comes in step 4C</span>
+                                    <>
+                                        <Link
+                                            href={route(item.type === 'lesson' ? 'instructor.lessons.edit' : 'instructor.quizzes.edit', item.id)}
+                                            className={smallButton}
+                                        >
+                                            Edit
+                                        </Link>
+                                        <button type="button" className={`${smallButton} text-red-600`} onClick={() => removeItem(item)}>
+                                            Delete
+                                        </button>
+                                    </>                                 
                                 )}
                             </div>
                         </li>
@@ -139,12 +154,18 @@ export default function ModuleCard({ courseModule, index, total, onMove }) {
                 </ul>
             )}
 
-            <div className="border-t border-gray-100 px-4 py-3">
+            <div className="flex gap-4 border-t border-gray-100 px-4 py-3">
                 <Link
                     href={route('instructor.modules.lessons.create', courseModule.id)}
                     className="text-sm font-medium text-indigo-600 hover:underline"
                 >
                     + Add lesson
+                </Link>
+                <Link
+                    href={route('instructor.modules.quizzes.create', courseModule.id)}
+                    className="text-sm font-medium text-indigo-600 hover:underline"
+                >
+                    + Add quiz
                 </Link>
             </div>
         </div>
