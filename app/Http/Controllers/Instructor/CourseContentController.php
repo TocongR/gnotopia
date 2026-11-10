@@ -26,25 +26,7 @@ class CourseContentController extends Controller
             'modules' => $course->modules->map(fn (Module $module) => [
                 'id' => $module->id,
                 'title' => $module->title,
-                'items' => $module->lessons
-                    ->map(fn ($lesson) => [
-                        'key' => 'lesson-'.$lesson->id,
-                        'type' => 'lesson',
-                        'id' => $lesson->id,
-                        'title' => $lesson->title,
-                        'kind' => $lesson->type->value,
-                        'position' => $lesson->position,
-                    ])
-                    ->concat($module->quizzes->map(fn ($quiz) => [
-                        'key' => 'quiz-'.$quiz->id,
-                        'type' => 'quiz',
-                        'id' => $quiz->id,
-                        'title' => $quiz->title,
-                        'kind' => 'quiz',
-                        'position' => $quiz->position,
-                    ]))
-                    ->sortBy('position')
-                    ->values(),
+                'items' => $module->outline(),
             ])->values(),
         ]);
     }

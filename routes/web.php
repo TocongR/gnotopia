@@ -1,19 +1,14 @@
 <?php
 
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', HomeController::class)->name('home');
+Route::get('/courses', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/courses/{course:slug}', [CatalogController::class, 'show'])->name('catalog.show');
 
 Route::get('/dashboard', DashboardController::class)
     ->middleware(['auth', 'not.suspended'])

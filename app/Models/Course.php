@@ -50,6 +50,24 @@ class Course extends Model
         return $query->where('status', CourseStatus::Published);
     }
 
+    public function scopeSearch(Builder $query, ?string $term): Builder
+    {
+        $term = trim((string) $term);
+
+        if ($term === '') {
+            return $query;
+        }
+
+        // "!" is the escape character, a visitor typing % or _ searches for those
+        // literal characters instead of acting as a wildcard.
+        $like = '%'.str_replace(['!', '%', '_'], ['!!', '!%', '!_'], $term).'%';
+
+        return $query->where(function (Builder $q) use ($like) {
+            $q->whereRaw("courses.title like ? escape '!'", [$like])
+                ->orWhereRaw("courses.description like ? escape '!'", [$like]);
+        });
+    }
+
     public function isPublished(): bool
     {
         return $this->status === CourseStatus::Published;
