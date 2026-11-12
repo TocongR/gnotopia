@@ -9,10 +9,10 @@ export default function Index({ courses }) {
         <AuthenticatedLayout
             header={
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800">My Courses</h2>
+                    <h2 className="text-xl font-semibold leading-tight text-stone-800">My Courses</h2>
                     <Link
                         href={route('instructor.courses.create')}
-                        className="rounded-md bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white hover:bg-gray-700"
+                        className="rounded-md bg-brand-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white hover:bg-brand-700"
                     >
                         New course
                     </Link>
@@ -25,11 +25,11 @@ export default function Index({ courses }) {
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         {courses.data.length === 0 ? (
-                            <p className="p-6 text-gray-600">You haven't created any courses yet.</p>
+                            <p className="p-6 text-stone-600">You haven't created any courses yet.</p>
                         ) : (
                             <div className="overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 text-sm">
-                                    <thead className="bg-gray-50 text-left text-xs uppercase text-gray-500">
+                                <table className="min-w-full divide-y divide-stone-200 text-sm">
+                                    <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500">
                                         <tr>
                                             <th className="px-6 py-3">Title</th>
                                             <th className="px-6 py-3">Category</th>
@@ -39,13 +39,13 @@ export default function Index({ courses }) {
                                             <th className="px-6 py-3">Updated</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-200">
+                                    <tbody className="divide-y divide-stone-200">
                                         {courses.data.map((course) => (
                                             <tr key={course.id}>
                                                 <td className="px-6 py-4 font-medium">
                                                     <Link
                                                         href={route('instructor.courses.edit', course.id)}
-                                                        className="text-indigo-600 hover:underline"
+                                                        className="text-brand-600 hover:underline"
                                                     >
                                                         {course.title}
                                                     </Link>
@@ -56,7 +56,7 @@ export default function Index({ courses }) {
                                                 <td className="px-6 py-4">
                                                     <StatusBadge status={course.status} />
                                                 </td>
-                                                <td className="px-6 py-4 text-gray-500">{course.updated_at}</td>
+                                                <td className="px-6 py-4 text-stone-500">{course.updated_at}</td>
                                             </tr>
                                         ))}
                                     </tbody>

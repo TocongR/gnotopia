@@ -18,7 +18,7 @@ export default function Edit({ course, module: parentModule, lesson }) {
     return (
         <AuthenticatedLayout
             header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                <h2 className="text-xl font-semibold leading-tight text-stone-800">
                     Edit lesson in "{parentModule.title}"
                 </h2>
             }

@@ -18,14 +18,14 @@ export default function Pagination({ links }) {
                         preserveScroll
                         className={`rounded border px-3 py-1 text-sm ${
                             link.active
-                                ? 'border-indigo-600 bg-indigo-600 text-white'
-                                : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                                ? 'border-brand-600 bg-brand-600 text-white'
+                                : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
                         }`}
                     >
                         {clean(link.label)}
                     </Link>
                 ) : (
-                    <span key={index} className="rounded border border-gray-200 px-3 py-1 text-sm text-gray-400">
+                    <span key={index} className="rounded border border-stone-200 px-3 py-1 text-sm text-stone-400">
                         {clean(link.label)}
                     </span>
                 ),

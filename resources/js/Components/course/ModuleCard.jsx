@@ -3,7 +3,7 @@ import { Link, router, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
 const smallButton =
-    'rounded border border-gray-300 px-2 py-1 text-xs text-gray-700 hover:bg-gray-50 disabled:opacity-30 disabled:hover:bg-transparent';
+    'rounded border border-stone-300 px-2 py-1 text-xs text-stone-700 hover:bg-stone-50 disabled:opacity-30 disabled:hover:bg-transparent';
 
 export default function ModuleCard({ courseModule, index, total, onMove }) {
     const [editing, setEditing] = useState(false);
@@ -48,12 +48,12 @@ export default function ModuleCard({ courseModule, index, total, onMove }) {
     };
 
     return (
-        <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-            <div className="flex flex-wrap items-center justify-between gap-3 bg-gray-50 px-4 py-3">
+        <div className="overflow-hidden rounded-lg border border-stone-200 bg-white shadow-sm">
+            <div className="flex flex-wrap items-center justify-between gap-3 bg-stone-50 px-4 py-3">
                 {editing ? (
                     <form onSubmit={rename} className="flex flex-1 items-center gap-2">
                         <input
-                            className="flex-1 rounded-md border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            className="flex-1 rounded-md border-stone-300 text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500"
                             value={form.data.title}
                             onChange={(e) => form.setData('title', e.target.value)}
                             autoFocus
@@ -74,7 +74,7 @@ export default function ModuleCard({ courseModule, index, total, onMove }) {
                         </button>
                     </form>
                 ) : (
-                    <h3 className="font-semibold text-gray-900">
+                    <h3 className="font-semibold text-stone-900">
                         {index + 1}. {courseModule.title}
                     </h3>
                 )}
@@ -100,16 +100,16 @@ export default function ModuleCard({ courseModule, index, total, onMove }) {
             {editing && <InputError message={form.errors.title} className="px-4 pt-2" />}
 
             {courseModule.items.length === 0 ? (
-                <p className="px-4 py-4 text-sm text-gray-500">No lessons yet.</p>
+                <p className="px-4 py-4 text-sm text-stone-500">No lessons yet.</p>
             ) : (
-                <ul className="divide-y divide-gray-100">
+                <ul className="divide-y divide-stone-100">
                     {courseModule.items.map((item, itemIndex) => (
                         <li key={item.key} className="flex items-center justify-between gap-3 px-4 py-3">
                             <div className="min-w-0">
-                                <span className="mr-2 rounded bg-gray-100 px-2 py-0.5 text-xs capitalize text-gray-700">
+                                <span className="mr-2 rounded bg-stone-100 px-2 py-0.5 text-xs capitalize text-stone-700">
                                     {item.kind}
                                 </span>
-                                <span className="font-medium text-gray-900">{item.title}</span>
+                                <span className="font-medium text-stone-900">{item.title}</span>
                             </div>
 
                             <div className="flex shrink-0 items-center gap-1">
@@ -154,16 +154,16 @@ export default function ModuleCard({ courseModule, index, total, onMove }) {
                 </ul>
             )}
 
-            <div className="flex gap-4 border-t border-gray-100 px-4 py-3">
+            <div className="flex gap-4 border-t border-stone-100 px-4 py-3">
                 <Link
                     href={route('instructor.modules.lessons.create', courseModule.id)}
-                    className="text-sm font-medium text-indigo-600 hover:underline"
+                    className="text-sm font-medium text-brand-600 hover:underline"
                 >
                     + Add lesson
                 </Link>
                 <Link
                     href={route('instructor.modules.quizzes.create', courseModule.id)}
-                    className="text-sm font-medium text-indigo-600 hover:underline"
+                    className="text-sm font-medium text-brand-600 hover:underline"
                 >
                     + Add quiz
                 </Link>

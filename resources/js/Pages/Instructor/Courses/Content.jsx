@@ -39,10 +39,10 @@ export default function Content({ course, modules }) {
             header={
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <h2 className="text-xl font-semibold leading-tight text-gray-800">Content: {course.title}</h2>
+                        <h2 className="text-xl font-semibold leading-tight text-stone-800">Content: {course.title}</h2>
                         <StatusBadge status={course.status} />
                     </div>
-                    <Link href={route('instructor.courses.edit', course.id)} className="text-sm text-gray-600 hover:underline">
+                    <Link href={route('instructor.courses.edit', course.id)} className="text-sm text-stone-600 hover:underline">
                         Back to course details
                     </Link>
                 </div>
@@ -55,7 +55,7 @@ export default function Content({ course, modules }) {
                     {problem && <div className="rounded-md bg-red-50 p-4 text-sm text-red-800">{problem}</div>}
 
                     {modules.length === 0 && (
-                        <div className="rounded-lg bg-white p-6 text-gray-600 shadow-sm">
+                        <div className="rounded-lg bg-white p-6 text-stone-600 shadow-sm">
                             This course has no modules yet. Add the first one below.
                         </div>
                     )}

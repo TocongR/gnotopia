@@ -17,7 +17,7 @@ export default function Create({ categories }) {
 
     return (
         <AuthenticatedLayout
-            header={<h2 className="text-xl font-semibold leading-tight text-gray-800">New Course</h2>}
+            header={<h2 className="text-xl font-semibold leading-tight text-stone-800">New Course</h2>}
         >
             <Head title="New Course" />
 
