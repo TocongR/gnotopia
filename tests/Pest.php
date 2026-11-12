@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\Module;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 /*
@@ -47,4 +51,22 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+/**
+ * A published course with one module and $lessonCount lessons.
+ *
+ * @return array{0: Course, 1: Collection<int, Lesson>}
+ */
+function learningCourse(int $lessonCount = 2, array $attributes = []): array
+{
+    $course = Course::factory()->published()->create($attributes);
+    $module = Module::factory()->for($course)->create(['position' => 1]);
+
+    $lessons = Collection::times(
+        $lessonCount,
+        fn (int $position) => Lesson::factory()->for($module)->create(['position' => $position]),
+    );
+
+    return [$course, $lessons];
 }

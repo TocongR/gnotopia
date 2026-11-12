@@ -1,10 +1,65 @@
 import PublicLayout from '@/Layouts/PublicLayout';
 import { formatPrice } from '@/lib/format';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 
 const kindLabels = { article: 'Article', video: 'Video', quiz: 'Quiz' };
 
-export default function Show({ course }) {
+const primaryLink =
+    'block rounded-md bg-brand-800 px-4 py-2 text-center text-sm font-medium text-white hover:bg-brand-700';
+
+function EnrollPanel({ course, viewer, loggedIn }) {
+    const form = useForm({});
+
+    if (!loggedIn) {
+        return (
+            <div className="mt-4 space-y-2">
+                <Link href={route('register')} className={primaryLink}>
+                    Create an account to enroll
+                </Link>
+                <Link href={route('login')} className="block text-center text-sm text-stone-600 hover:underline">
+                    Already have an account? Log in
+                </Link>
+            </div>
+        );
+    }
+
+    if (!viewer.is_student) {
+        return (
+            <p className="mt-4 rounded-md bg-stone-100 p-3 text-sm text-stone-600">
+                Enrolling is available to student accounts.
+            </p>
+        );
+    }
+
+    if (viewer.enrolled) {
+        return (
+            <Link href={route('student.learn.show', course.slug)} className={`${primaryLink} mt-4`}>
+                Continue learning
+            </Link>
+        );
+    }
+
+    if (viewer.can_enroll) {
+        return (
+            <button
+                type="button"
+                disabled={form.processing}
+                onClick={() => form.post(route('student.courses.enroll', course.slug))}
+                className={`${primaryLink} mt-4 w-full disabled:opacity-50`}
+            >
+                Enroll for free
+            </button>
+        );
+    }
+
+    return (
+        <p className="mt-4 rounded-md bg-stone-100 p-3 text-sm text-stone-600">
+            Paid courses cannot be purchased yet. Payments open in a later update.
+        </p>
+    );
+}
+
+export default function Show({ course, viewer }) {
     const { auth } = usePage().props;
 
     return (
@@ -29,14 +84,14 @@ export default function Show({ course }) {
             <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-3 lg:px-8">
                 <div className="space-y-10 lg:col-span-2">
                     <section>
-                        <h2 className="text-xl font-bold text-stone-900">About this course</h2>
+                        <h2 className="font-display text-xl font-semibold text-stone-900">About this course</h2>
                         <p className="mt-3 whitespace-pre-line text-stone-700">
                             {course.description || 'No description yet.'}
                         </p>
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-bold text-stone-900">Course content</h2>
+                        <h2 className="font-display text-xl font-semibold text-stone-900">Course content</h2>
                         <p className="mt-1 text-sm text-stone-500">
                             {course.modules.length} module(s) · {course.lessons_count} lesson(s) · {course.quizzes_count}{' '}
                             quiz(zes)
@@ -46,7 +101,7 @@ export default function Show({ course }) {
                             {course.modules.map((courseModule, index) => (
                                 <details
                                     key={courseModule.id}
-                                    className="rounded-lg border border-stone-200 bg-white"
+                                    className="rounded-md border border-stone-200 bg-white"
                                     open={index === 0}
                                 >
                                     <summary className="cursor-pointer px-4 py-3 font-semibold text-stone-900">
@@ -69,30 +124,12 @@ export default function Show({ course }) {
                 </div>
 
                 <aside>
-                    <div className="sticky top-6 rounded-lg border border-stone-200 bg-white p-6 shadow-sm">
-                        <p className="text-3xl font-bold text-stone-900">{formatPrice(course.price_cents)}</p>
+                    <div className="sticky top-6 rounded-md border border-stone-200 bg-white p-6">
+                        <p className="font-display text-3xl font-semibold text-stone-900">
+                            {formatPrice(course.price_cents)}
+                        </p>
 
-                        {/* Step 6 replaces this panel with a real Enroll button. */}
-                        {auth.user ? (
-                            <p className="mt-4 rounded-md bg-stone-100 p-3 text-sm text-stone-600">
-                                Enrollment opens in the next update.
-                            </p>
-                        ) : (
-                            <div className="mt-4 space-y-2">
-                                <Link
-                                    href={route('register')}
-                                    className="block rounded-md bg-brand-600 px-4 py-2 text-center text-sm font-semibold text-white hover:bg-brand-500"
-                                >
-                                    Create an account to enroll
-                                </Link>
-                                <Link
-                                    href={route('login')}
-                                    className="block text-center text-sm text-stone-600 hover:underline"
-                                >
-                                    Already have an account? Log in
-                                </Link>
-                            </div>
-                        )}
+                        <EnrollPanel course={course} viewer={viewer} loggedIn={Boolean(auth.user)} />
                     </div>
                 </aside>
             </div>

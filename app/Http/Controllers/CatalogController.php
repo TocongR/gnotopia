@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role;
 use App\Http\Requests\CatalogIndexRequest;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Module;
 use App\Support\CourseCard;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -44,10 +46,12 @@ class CatalogController extends Controller
         ]);
     }
 
-    public function show(Course $course): Response
+    public function show(Request $request, Course $course): Response
     {
         // Drafts and suspended courses do not exist as far as the public is concerned.
         abort_unless($course->isPublished(), 404);
+
+        $user = $request->user();
 
         // Column lists keep lesson bodies and video URLs out of memory entirely.
         $course->load([
@@ -76,6 +80,11 @@ class CatalogController extends Controller
                         ->map(fn (array $item) => Arr::only($item, ['key', 'type', 'title', 'kind']))
                         ->values(),
                 ])->values(),
+            ],
+            'viewer' => [
+                'is_student' => $user?->hasRole(Role::Student) ?? false,
+                'enrolled' => $user?->isEnrolledIn($course) ?? false,
+                'can_enroll' => $user?->can('enroll', $course) ?? false,
             ],
         ]);
     }

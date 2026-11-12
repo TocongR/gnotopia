@@ -23,6 +23,10 @@ class DemoCourseSeeder extends Seeder
                 'email' => 'instructor@gnotopia.test',
             ]);
 
+        if (! User::where('email', 'student@gnotopia.test')->exists()) {
+            User::factory()->create(['name' => 'Demo Student', 'email' => 'student@gnotopia.test']);
+        }
+
         $categories = Category::all();
 
         foreach (range(1, 5) as $i) {

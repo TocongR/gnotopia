@@ -40,6 +40,11 @@ class User extends Authenticatable
         return $this->hasMany(Course::class);
     }
 
+    public function enrollments(): HasMany
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
     public function hasRole(Role ...$roles): bool
     {
         return in_array($this->role, $roles, true);
@@ -48,5 +53,10 @@ class User extends Authenticatable
     public function isSuspended(): bool
     {
         return $this->suspended_at !== null;
+    }
+
+    public function isEnrolledIn(Course $course): bool
+    {
+        return $this->enrollments()->where('course_id', $course->id)->exists();
     }
 }
