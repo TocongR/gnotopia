@@ -81,6 +81,10 @@ class CourseController extends Controller
     {
         Gate::authorize('delete', $course);
 
+        if ($course->enrollments()->exists()) {
+            return back()->with('error', 'This course has enrolled students, so it cannot be deleted. Unpublish it instead.');
+        }
+
         $course->delete();
 
         return redirect()
