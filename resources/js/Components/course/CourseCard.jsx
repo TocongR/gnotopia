@@ -5,22 +5,18 @@ export default function CourseCard({ course }) {
     return (
         <Link
             href={route('catalog.show', course.slug)}
-            className="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition hover:shadow-md"
+            className="group flex flex-col rounded-md border border-stone-200 bg-white p-5 transition-colors hover:border-brand-600"
         >
-            <div className="flex h-28 items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 text-4xl font-bold text-white/80">
-                {course.title.charAt(0).toUpperCase()}
-            </div>
+            <span className="text-xs font-semibold uppercase tracking-wide text-brand-700">{course.category}</span>
+            <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-stone-900 group-hover:text-brand-800">
+                {course.title}
+            </h3>
+            <p className="mt-1 text-sm text-stone-500">{course.instructor}</p>
+            <p className="mt-3 flex-1 text-sm text-stone-600">{course.excerpt}</p>
 
-            <div className="flex flex-1 flex-col p-4">
-                <span className="text-xs font-medium uppercase tracking-wide text-indigo-600">{course.category}</span>
-                <h3 className="mt-1 font-semibold text-gray-900">{course.title}</h3>
-                <p className="mt-1 text-sm text-gray-500">by {course.instructor}</p>
-                <p className="mt-2 flex-1 text-sm text-gray-600">{course.excerpt}</p>
-
-                <div className="mt-4 flex items-center justify-between text-sm">
-                    <span className="text-gray-500">{course.modules_count} module(s)</span>
-                    <span className="font-semibold text-gray-900">{formatPrice(course.price_cents)}</span>
-                </div>
+            <div className="mt-5 flex items-center justify-between border-t border-stone-100 pt-3 text-sm">
+                <span className="text-stone-500">{course.modules_count} module(s)</span>
+                <span className="font-semibold text-stone-900">{formatPrice(course.price_cents)}</span>
             </div>
         </Link>
     );

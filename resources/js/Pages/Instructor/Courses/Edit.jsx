@@ -38,8 +38,8 @@ export default function Edit({ course, categories }) {
         <AuthenticatedLayout
             header={
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800">Edit Course</h2>
-                    <Link href={route('instructor.courses.index')} className="text-sm text-gray-600 hover:underline">
+                    <h2 className="text-xl font-semibold leading-tight text-stone-800">Edit Course</h2>
+                    <Link href={route('instructor.courses.index')} className="text-sm text-stone-600 hover:underline">
                         Back to my courses
                     </Link>
                 </div>
@@ -60,10 +60,10 @@ export default function Edit({ course, categories }) {
 
                     <div className="space-y-6">
                         <div className="bg-white p-6 shadow-sm sm:rounded-lg">
-                            <h3 className="font-semibold text-gray-900">Status</h3>
+                            <h3 className="font-semibold text-stone-900">Status</h3>
                             <div className="mt-2 flex items-center gap-2">
                                 <StatusBadge status={course.status} />
-                                <span className="text-sm text-gray-600">{course.modules_count} module(s)</span>
+                                <span className="text-sm text-stone-600">{course.modules_count} module(s)</span>
                             </div>
 
                             <div className="mt-4">
@@ -79,18 +79,18 @@ export default function Edit({ course, categories }) {
                         </div>
 
                         <div className="bg-white p-6 shadow-sm sm:rounded-lg">
-                            <h3 className="font-semibold text-gray-900">Content</h3>
-                            <p className="mt-2 text-sm text-gray-600">{course.modules_count} module(s)</p>
+                            <h3 className="font-semibold text-stone-900">Content</h3>
+                            <p className="mt-2 text-sm text-stone-600">{course.modules_count} module(s)</p>
                             <Link
                                 href={route('instructor.courses.content', course.id)}
-                                className="mt-3 inline-block text-sm font-medium text-indigo-600 hover:underline"
+                                className="mt-3 inline-block text-sm font-medium text-brand-600 hover:underline"
                             >
                                 Manage modules and lessons →
                             </Link>
                         </div>
 
                         <div className="bg-white p-6 shadow-sm sm:rounded-lg">
-                            <h3 className="font-semibold text-gray-900">Danger zone</h3>
+                            <h3 className="font-semibold text-stone-900">Danger zone</h3>
                             <div className="mt-4">
                                 <DangerButton onClick={destroy}>Delete course</DangerButton>
                             </div>

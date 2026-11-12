@@ -17,7 +17,7 @@ export default function Create({ course, module: parentModule }) {
     return (
         <AuthenticatedLayout
             header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                <h2 className="text-xl font-semibold leading-tight text-stone-800">
                     New quiz in "{parentModule.title}"
                 </h2>
             }

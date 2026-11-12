@@ -22,7 +22,7 @@ export default function LessonForm({ form, onSubmit, submitLabel, cancelHref }) 
                         <label
                             key={type.value}
                             className={`cursor-pointer rounded-md border p-3 text-sm ${
-                                data.type === type.value ? 'border-indigo-600 bg-indigo-50' : 'border-gray-300'
+                                data.type === type.value ? 'border-brand-600 bg-brand-50' : 'border-stone-300'
                             }`}
                         >
                             <input
@@ -33,8 +33,8 @@ export default function LessonForm({ form, onSubmit, submitLabel, cancelHref }) 
                                 onChange={(e) => setData('type', e.target.value)}
                                 className="sr-only"
                             />
-                            <span className="block font-semibold text-gray-900">{type.label}</span>
-                            <span className="block text-gray-600">{type.hint}</span>
+                            <span className="block font-semibold text-stone-900">{type.label}</span>
+                            <span className="block text-stone-600">{type.hint}</span>
                         </label>
                     ))}
                 </div>
@@ -76,7 +76,7 @@ export default function LessonForm({ form, onSubmit, submitLabel, cancelHref }) 
 
             <div className="flex items-center gap-4">
                 <PrimaryButton disabled={processing}>{submitLabel}</PrimaryButton>
-                <Link href={cancelHref} className="text-sm text-gray-600 hover:underline">
+                <Link href={cancelHref} className="text-sm text-stone-600 hover:underline">
                     Cancel
                 </Link>
             </div>

@@ -13,7 +13,7 @@ export const blankOption = () => ({ id: null, body: '', is_correct: false });
 export const blankQuestion = () => ({ id: null, body: '', options: [blankOption(), blankOption()] });
 
 const smallButton =
-    'rounded border border-gray-300 px-2 py-1 text-xs text-gray-700 hover:bg-gray-50 disabled:opacity-30 disabled:hover:bg-transparent';
+    'rounded border border-stone-300 px-2 py-1 text-xs text-stone-700 hover:bg-stone-50 disabled:opacity-30 disabled:hover:bg-transparent';
 
 export default function QuizForm({ form, onSubmit, submitLabel, cancelHref }) {
     const { data, setData, errors, processing } = form;
@@ -93,7 +93,7 @@ export default function QuizForm({ form, onSubmit, submitLabel, cancelHref }) {
 
             <div className="space-y-4">
                 {data.questions.map((question, qIndex) => (
-                    <div key={qIndex} className="rounded-lg border border-gray-200 p-4">
+                    <div key={qIndex} className="rounded-lg border border-stone-200 p-4">
                         <div className="flex items-start justify-between gap-3">
                             <InputLabel htmlFor={`question-${qIndex}`} value={`Question ${qIndex + 1}`} />
 
@@ -130,13 +130,13 @@ export default function QuizForm({ form, onSubmit, submitLabel, cancelHref }) {
                         <textarea
                             id={`question-${qIndex}`}
                             rows={2}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            className="mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-brand-500 focus:ring-brand-500"
                             value={question.body}
                             onChange={(e) => updateQuestion(qIndex, { body: e.target.value })}
                         />
                         <InputError message={errors[`questions.${qIndex}.body`]} className="mt-2" />
 
-                        <p className="mt-4 text-xs text-gray-500">
+                        <p className="mt-4 text-xs text-stone-500">
                             Select the radio button next to the correct answer.
                         </p>
 
@@ -150,7 +150,7 @@ export default function QuizForm({ form, onSubmit, submitLabel, cancelHref }) {
                                             aria-label={`Option ${oIndex + 1} is the correct answer`}
                                             checked={option.is_correct}
                                             onChange={() => markCorrect(qIndex, oIndex)}
-                                            className="text-indigo-600 focus:ring-indigo-500"
+                                            className="text-brand-600 focus:ring-brand-500"
                                         />
                                         <TextInput
                                             className="block w-full"
@@ -180,7 +180,7 @@ export default function QuizForm({ form, onSubmit, submitLabel, cancelHref }) {
 
                         <button
                             type="button"
-                            className="mt-3 text-sm font-medium text-indigo-600 hover:underline disabled:opacity-40"
+                            className="mt-3 text-sm font-medium text-brand-600 hover:underline disabled:opacity-40"
                             disabled={question.options.length >= MAX_OPTIONS}
                             onClick={() => addOption(qIndex)}
                         >
@@ -194,9 +194,9 @@ export default function QuizForm({ form, onSubmit, submitLabel, cancelHref }) {
                 + Add question
             </SecondaryButton>
 
-            <div className="flex items-center gap-4 border-t border-gray-100 pt-6">
+            <div className="flex items-center gap-4 border-t border-stone-100 pt-6">
                 <PrimaryButton disabled={processing}>{submitLabel}</PrimaryButton>
-                <Link href={cancelHref} className="text-sm text-gray-600 hover:underline">
+                <Link href={cancelHref} className="text-sm text-stone-600 hover:underline">
                     Cancel
                 </Link>
             </div>

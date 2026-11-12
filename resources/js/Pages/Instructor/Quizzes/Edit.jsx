@@ -25,7 +25,7 @@ export default function Edit({ course, module: parentModule, quiz }) {
         <AuthenticatedLayout
             header={
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                    <h2 className="text-xl font-semibold leading-tight text-stone-800">
                         Edit quiz in "{parentModule.title}"
                     </h2>
                     <DangerButton onClick={destroy}>Delete quiz</DangerButton>

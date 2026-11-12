@@ -6,7 +6,7 @@ export default function Admin() {
 
     return (
         <AuthenticatedLayout
-            header={<h2 className="text-xl font-semibold leading-tight text-gray-800">Admin Dashboard</h2>}
+            header={<h2 className="text-xl font-semibold leading-tight text-stone-800">Admin Dashboard</h2>}
         >
             <Head title="Admin Dashboard" />
 

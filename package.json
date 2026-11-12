@@ -25,6 +25,7 @@
         "@laravel/multiplex": "^0.4.1"
     },
     "dependencies": {
+        "@fontsource-variable/source-serif-4": "^5.3.1",
         "@tiptap/pm": "^3.33.0",
         "@tiptap/react": "^3.33.0",
         "@tiptap/starter-kit": "^3.33.0"

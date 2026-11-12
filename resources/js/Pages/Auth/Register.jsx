@@ -41,8 +41,8 @@ export default function Register() {
                                 key={role.value}
                                 className={`cursor-pointer rounded-md border p-3 text-sm ${
                                     data.role === role.value
-                                        ? 'border-indigo-600 bg-indigo-50'
-                                        : 'border-gray-300'
+                                        ? 'border-brand-600 bg-brand-50'
+                                        : 'border-stone-300'
                                 }`}
                             >
                                 <input
@@ -53,8 +53,8 @@ export default function Register() {
                                     onChange={(e) => setData('role', e.target.value)}
                                     className="sr-only"
                                 />
-                                <span className="block font-semibold text-gray-900">{role.title}</span>
-                                <span className="block text-gray-600">{role.description}</span>
+                                <span className="block font-semibold text-stone-900">{role.title}</span>
+                                <span className="block text-stone-600">{role.description}</span>
                             </label>
                         ))}
                     </div>
@@ -125,7 +125,7 @@ export default function Register() {
                 <div className="mt-4 flex items-center justify-end">
                     <Link
                         href={route('login')}
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900"
+                        className="rounded-md text-sm text-stone-600 underline hover:text-stone-900"
                     >
                         Already registered?
                     </Link>
