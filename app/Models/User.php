@@ -73,8 +73,8 @@ class User extends Authenticatable
         $like = Like::contains($term);
 
         return $query->where(function (Builder $q) use ($like) {
-            $q->whereRaw("users.name like ? escape '!'", [$like])
-                ->orWhereRaw("users.email like ? escape '!'", [$like]);
+            $q->whereRaw("lower(users.name) like lower(?) escape '!'", [$like])
+                ->orWhereRaw("lower(users.email) like lower(?) escape '!'", [$like]);
         });
     }
 }
