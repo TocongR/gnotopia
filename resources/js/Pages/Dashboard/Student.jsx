@@ -54,7 +54,7 @@ export default function Student({ courses }) {
                                     <div className="mt-4">
                                         <ProgressBar percent={course.progress.percent} label={`${course.title} progress`} />
                                         <p className="mt-1 text-xs text-stone-500">
-                                            {course.progress.done} of {course.progress.total} lessons complete
+                                            {course.progress.done} of {course.progress.total} steps complete
                                         </p>
                                     </div>
                                 </li>
