@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'not.suspended', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
+    ->where(['course' => '[0-9]{1,18}'])
     ->group(function () {
         Route::get('/dashboard', DashboardController::class)->name('dashboard');
 

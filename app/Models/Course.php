@@ -66,9 +66,10 @@ class Course extends Model
 
         $like = Like::contains($term);
 
+        // lower() on both sides makes the match case-insensitive on every database.
         return $query->where(function (Builder $q) use ($like) {
-            $q->whereRaw("courses.title like ? escape '!'", [$like])
-                ->orWhereRaw("courses.description like ? escape '!'", [$like]);
+            $q->whereRaw("lower(courses.title) like lower(?) escape '!'", [$like])
+                ->orWhereRaw("lower(courses.description) like lower(?) escape '!'", [$like]);
         });
     }
 
