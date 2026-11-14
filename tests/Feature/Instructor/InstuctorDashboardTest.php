@@ -139,6 +139,10 @@ it('keeps the student list private to the course owner', function () {
     $this->actingAs(User::factory()->create())
         ->get(route('instructor.courses.students', $course))
         ->assertForbidden();
+});
+
+it('sends guests to the login page instead of the student list', function () {
+    [$course] = learningCourse(1);
 
     $this->get(route('instructor.courses.students', $course))
         ->assertRedirect(route('login'));

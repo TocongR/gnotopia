@@ -54,4 +54,9 @@ class CoursePolicy
     {
         return $this->owns($user, $course);
     }
+
+    public function moderate(User $user, Course $course): bool
+    {
+        return $user->hasRole(Role::Admin);
+    }
 }
