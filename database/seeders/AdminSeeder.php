@@ -11,13 +11,26 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        $admin = User::firstOrNew(['email' => 'admin@gnotopia.test']);
+        $email = config('gnotopia.admin.email');
+        $password = config('gnotopia.admin.password');
 
-        $admin->forceFill([
-            'name' => 'Admin',
-            'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
-            'role' => Role::Admin,
-            'email_verified_at' => now(),
-        ])->save();
+        if (! $password) {
+            if (app()->isProduction()) {
+                throw new \RuntimeException('Set ADMIN_PASSWORD in .env before seeding the admin account.');
+            }
+
+            $password = 'password'; // local development only
+        }
+
+        // Never touch an existing account: running the seeder again must not reset a real admin's password.
+        if (User::where('email', $email)->exists()) {
+            return;
+        }
+
+        $admin = new User(['name' => 'Admin', 'email' => $email]);
+        $admin->password = Hash::make($password);
+        $admin->role = Role::Admin;
+        $admin->email_verified_at = now();
+        $admin->save();
     }
 }
