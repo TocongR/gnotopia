@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\CourseStatus;
+use App\Support\Like;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -63,9 +64,7 @@ class Course extends Model
             return $query;
         }
 
-        // "!" is the escape character, a visitor typing % or _ searches for those
-        // literal characters instead of acting as a wildcard.
-        $like = '%'.str_replace(['!', '%', '_'], ['!!', '!%', '!_'], $term).'%';
+        $like = Like::contains($term);
 
         return $query->where(function (Builder $q) use ($like) {
             $q->whereRaw("courses.title like ? escape '!'", [$like])

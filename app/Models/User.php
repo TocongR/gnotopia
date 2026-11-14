@@ -5,9 +5,11 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\Role;
+use App\Support\Like;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -58,5 +60,21 @@ class User extends Authenticatable
     public function isEnrolledIn(Course $course): bool
     {
         return $this->enrollments()->where('course_id', $course->id)->exists();
+    }
+
+    public function scopeSearch(Builder $query, ?string $term): Builder
+    {
+        $term = trim((string) $term);
+
+        if ($term === '') {
+            return $query;
+        }
+
+        $like = Like::contains($term);
+
+        return $query->where(function (Builder $q) use ($like) {
+            $q->whereRaw("users.name like ? escape '!'", [$like])
+                ->orWhereRaw("users.email like ? escape '!'", [$like]);
+        });
     }
 }
