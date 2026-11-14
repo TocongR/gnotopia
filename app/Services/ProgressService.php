@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\LessonProgress;
 use App\Models\Quiz;
@@ -12,7 +13,7 @@ use Illuminate\Support\Collection;
 class ProgressService
 {
     /**
-     * Progress for several courses at once: a handful of queries, however many courses.
+     * One student's progress across several courses: a handful of queries, however many courses.
      * A "step" is a lesson (done when completed) or a quiz (done when passed).
      *
      * @param  Collection<int, int>  $courseIds
@@ -55,16 +56,64 @@ class ProgressService
             ->selectRaw('modules.course_id as course_id, count(distinct quizzes.id) as done')
             ->pluck('done', 'course_id');
 
-        return $courseIds->mapWithKeys(function ($id) use ($lessonTotals, $quizTotals, $lessonsDone, $quizzesDone) {
-            $total = (int) ($lessonTotals[$id] ?? 0) + (int) ($quizTotals[$id] ?? 0);
-            $done = min((int) ($lessonsDone[$id] ?? 0) + (int) ($quizzesDone[$id] ?? 0), $total);
+        return $courseIds->mapWithKeys(fn ($id) => [$id => $this->shape(
+            (int) ($lessonsDone[$id] ?? 0) + (int) ($quizzesDone[$id] ?? 0),
+            (int) ($lessonTotals[$id] ?? 0) + (int) ($quizTotals[$id] ?? 0),
+        )])->all();
+    }
 
-            return [$id => [
-                'done' => $done,
-                'total' => $total,
-                'percent' => $total > 0 ? (int) floor($done / $total * 100) : 0,
-            ]];
-        })->all();
+    /**
+     * Many students' progress in one course (for the instructor's student list).
+     *
+     * @param  Collection<int, int>  $userIds
+     * @return array<int, array{done: int, total: int, percent: int}>
+     */
+    public function forCourse(Course $course, Collection $userIds): array
+    {
+        if ($userIds->isEmpty()) {
+            return [];
+        }
+
+        $total = Lesson::query()
+            ->join('modules', 'modules.id', '=', 'lessons.module_id')
+            ->where('modules.course_id', $course->id)
+            ->count()
+            + $this->quizzesWithQuestions()->where('modules.course_id', $course->id)->count();
+
+        $lessonsDone = LessonProgress::query()
+            ->join('lessons', 'lessons.id', '=', 'lesson_progress.lesson_id')
+            ->join('modules', 'modules.id', '=', 'lessons.module_id')
+            ->where('modules.course_id', $course->id)
+            ->whereIn('lesson_progress.user_id', $userIds)
+            ->groupBy('lesson_progress.user_id')
+            ->selectRaw('lesson_progress.user_id as user_id, count(*) as done')
+            ->pluck('done', 'user_id');
+
+        $quizzesDone = $this->quizzesWithQuestions()
+            ->join('quiz_attempts', 'quiz_attempts.quiz_id', '=', 'quizzes.id')
+            ->where('quiz_attempts.passed', true)
+            ->where('modules.course_id', $course->id)
+            ->whereIn('quiz_attempts.user_id', $userIds)
+            ->groupBy('quiz_attempts.user_id')
+            ->selectRaw('quiz_attempts.user_id as user_id, count(distinct quizzes.id) as done')
+            ->pluck('done', 'user_id');
+
+        return $userIds->mapWithKeys(fn ($id) => [$id => $this->shape(
+            (int) ($lessonsDone[$id] ?? 0) + (int) ($quizzesDone[$id] ?? 0),
+            $total,
+        )])->all();
+    }
+
+    /** @return array{done: int, total: int, percent: int} */
+    private function shape(int $done, int $total): array
+    {
+        $done = min($done, $total);
+
+        return [
+            'done' => $done,
+            'total' => $total,
+            'percent' => $total > 0 ? (int) floor($done / $total * 100) : 0,
+        ];
     }
 
     /** Quizzes a student can actually take: the ones that have at least one question. */

@@ -32,6 +32,8 @@ class DashboardController extends Controller
                 'category' => $enrollment->course->category->name,
                 'instructor' => $enrollment->course->instructor->name,
                 'suspended' => $enrollment->course->status === CourseStatus::Suspended,
+                'completed' => $enrollment->completed_at !== null,
+                'completed_at' => $enrollment->completed_at?->toFormattedDateString(),
                 'progress' => $summaries[$enrollment->course_id],
             ])->values(),
         ]);

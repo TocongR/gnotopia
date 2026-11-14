@@ -20,7 +20,7 @@ class CourseController extends Controller
     {
         $courses = $request->user()->courses()
             ->with('category:id,name')
-            ->withCount('modules')
+            ->withCount(['modules', 'enrollments'])
             ->latest()
             ->paginate(10)
             ->through(fn (Course $course) => [
@@ -30,6 +30,7 @@ class CourseController extends Controller
                 'price_cents' => $course->price_cents,
                 'category' => $course->category->name,
                 'modules_count' => $course->modules_count,
+                'enrollments_count' => $course->enrollments_count,
                 'updated_at' => $course->updated_at->diffForHumans(),
             ]);
 

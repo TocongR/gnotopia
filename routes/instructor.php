@@ -3,6 +3,8 @@
 use App\Http\Controllers\Instructor\CourseContentController;
 use App\Http\Controllers\Instructor\CourseController;
 use App\Http\Controllers\Instructor\CoursePublishController;
+use App\Http\Controllers\Instructor\CourseStudentsController;
+use App\Http\Controllers\Instructor\DashboardController;
 use App\Http\Controllers\Instructor\LessonController;
 use App\Http\Controllers\Instructor\ModuleController;
 use App\Http\Controllers\Instructor\QuizController;
@@ -14,7 +16,7 @@ Route::middleware(['auth', 'not.suspended', 'role:instructor'])
     ->prefix('instructor')
     ->name('instructor.')
     ->group(function () {
-        Route::inertia('/dashboard', 'Dashboard/Instructor')->name('dashboard');
+        Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
         // Courses
         Route::resource('courses', CourseController::class)->except('show');
@@ -22,6 +24,7 @@ Route::middleware(['auth', 'not.suspended', 'role:instructor'])
             ->name('courses.publish');
         Route::delete('courses/{course}/publish', [CoursePublishController::class, 'destroy'])
             ->name('courses.unpublish');
+        Route::get('courses/{course}/students', CourseStudentsController::class)->name('courses.students');
 
         // Course content: modules, lessons and quizzes
         Route::get('courses/{course}/content', CourseContentController::class)->name('courses.content');
