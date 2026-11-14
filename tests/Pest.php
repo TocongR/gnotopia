@@ -3,6 +3,9 @@
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Module;
+use App\Models\Option;
+use App\Models\Question;
+use App\Models\Quiz;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
@@ -69,4 +72,40 @@ function learningCourse(int $lessonCount = 2, array $attributes = []): array
     );
 
     return [$course, $lessons];
+}
+
+/**
+ * A quiz in the given module with $questionCount questions, each with 3 options
+ * (the first option of every question is the correct one).
+ */
+function quizWithQuestions(Module $module, int $questionCount = 2, array $attributes = []): Quiz
+{
+    $quiz = Quiz::factory()->for($module)->create($attributes + ['position' => 10]);
+
+    foreach (range(1, $questionCount) as $position) {
+        $question = Question::factory()->for($quiz)->create(['position' => $position]);
+
+        Option::factory()->correct()->for($question)->create();
+        Option::factory()->count(2)->for($question)->create();
+    }
+
+    return $quiz->load('questions.options');
+}
+
+/**
+ * Answers for a quiz as question id => option id.
+ * The first $correctCount questions are answered correctly, the rest wrongly.
+ */
+function quizAnswers(Quiz $quiz, ?int $correctCount = null): array
+{
+    $quiz->loadMissing('questions.options');
+    $correctCount ??= $quiz->questions->count();
+
+    return $quiz->questions->values()->mapWithKeys(function ($question, $index) use ($correctCount) {
+        $option = $index < $correctCount
+            ? $question->options->firstWhere('is_correct', true)
+            : $question->options->firstWhere('is_correct', false);
+
+        return [$question->id => $option->id];
+    })->all();
 }
