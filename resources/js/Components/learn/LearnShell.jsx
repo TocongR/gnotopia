@@ -19,7 +19,14 @@ export default function LearnShell({ course, modules, progress, currentKey, titl
 
             <div className="py-8">
                 <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
-                    <div className="lg:col-span-3">{children}</div>
+                    <div className="lg:col-span-3">
+                        {progress.percent === 100 && (
+                            <p role="status" className="mb-6 rounded-md bg-brand-50 p-4 text-sm font-medium text-brand-900">
+                                ✓ You have completed this course.
+                            </p>
+                        )}
+                        {children}
+                    </div>
 
                     <aside className="space-y-4 lg:order-first lg:col-span-1">
                         <div className="rounded-md border border-stone-200 bg-white p-4">

@@ -34,6 +34,7 @@ export default function Index({ courses }) {
                                             <th className="px-6 py-3">Title</th>
                                             <th className="px-6 py-3">Category</th>
                                             <th className="px-6 py-3">Modules</th>
+                                            <th className="px-6 py-3">Students</th>
                                             <th className="px-6 py-3">Price</th>
                                             <th className="px-6 py-3">Status</th>
                                             <th className="px-6 py-3">Updated</th>
@@ -52,6 +53,11 @@ export default function Index({ courses }) {
                                                 </td>
                                                 <td className="px-6 py-4">{course.category}</td>
                                                 <td className="px-6 py-4">{course.modules_count}</td>
+                                                <td className="px-6 py-4">
+                                                    <Link href={route('instructor.courses.students', course.id)} className="text-brand-700 hover:underline">
+                                                        {course.enrollments_count}
+                                                    </Link>
+                                                </td>
                                                 <td className="px-6 py-4">{formatPrice(course.price_cents)}</td>
                                                 <td className="px-6 py-4">
                                                     <StatusBadge status={course.status} />

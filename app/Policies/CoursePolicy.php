@@ -49,4 +49,9 @@ class CoursePolicy
         return $user->hasRole(Role::Instructor)
             && (int) $course->user_id === (int) $user->id;
     }
+
+    public function viewStudents(User $user, Course $course): bool
+    {
+        return $this->owns($user, $course);
+    }
 }

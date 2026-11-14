@@ -9,6 +9,8 @@ use Illuminate\Validation\ValidationException;
 
 class SubmitQuizAttempt
 {
+    public function __construct(private CheckCourseCompletion $checkCompletion) {}
+
     /**
      * @param  array<int|string, int|string>  $answers  question id => chosen option id
      */
@@ -54,7 +56,7 @@ class SubmitQuizAttempt
 
         $total = $questions->count();
 
-        return QuizAttempt::create([
+        $attempt = QuizAttempt::create([
             'user_id' => $student->id,
             'quiz_id' => $quiz->id,
             // Integer math only: floor(correct / total * 100), and the pass check is
@@ -63,5 +65,9 @@ class SubmitQuizAttempt
             'passed' => $correct * 100 >= (int) $quiz->pass_percent * $total,
             'answers' => $review,
         ]);
+
+        $this->checkCompletion->handle($student, $quiz->module->course_id);
+
+        return $attempt;
     }
 }
