@@ -89,8 +89,7 @@ export default function Home({ courses, categories }) {
                             Pick a course. Finish it.
                         </h1>
                         <p className="mx-auto mt-5 max-w-xl text-lg text-brand-100">
-                            Gnotopia hosts courses made by instructors: lessons, videos and quizzes in a set order,
-                            with your progress saved as you go.
+                            A better place to learn. Made for curious minds who want real skills, not just another unfinished tab.
                         </p>
 
                         <div className="mt-8 flex flex-wrap justify-center gap-3">
