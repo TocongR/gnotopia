@@ -26,10 +26,16 @@ export default {
                     900: '#1a362c',
                     950: '#0e1f19',
                 },
+                 sun: {
+                    200: '#fbe7a1',
+                    300: '#f7d774',
+                    400: '#f0c14b',
+                    500: '#e3a92b',
+                },
             },
             fontFamily: {
-                // keep your existing `sans` line here
-                display: ['"Source Serif 4 Variable"', ...defaultTheme.fontFamily.serif],
+                sans: ['"Plus Jakarta Sans Variable"', ...defaultTheme.fontFamily.sans],
+                display: ['"Plus Jakarta Sans Variable"', ...defaultTheme.fontFamily.sans],
             },
         },
     },
