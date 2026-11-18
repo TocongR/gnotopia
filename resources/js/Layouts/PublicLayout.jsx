@@ -1,3 +1,5 @@
+import LogoMark from '@/Components/LogoMark';
+import SiteFooter from '@/Components/layout/SiteFooter';
 import { Link, usePage } from '@inertiajs/react';
 
 export default function PublicLayout({ children }) {
@@ -5,33 +7,41 @@ export default function PublicLayout({ children }) {
 
     return (
         <div className="flex min-h-screen flex-col bg-stone-50 text-stone-900">
-            <header className="border-b border-stone-200 bg-white">
-                <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center gap-8">
-                        <Link href={route('home')} className="font-display text-2xl font-semibold tracking-tight text-brand-800">
-                            Gnotopia
-                        </Link>
-                        <Link href={route('catalog.index')} className="text-sm font-medium text-stone-700 hover:text-brand-800">
-                            Courses
-                        </Link>
-                    </div>
+            <header className="sticky top-0 z-30 px-4 pt-4">
+                <div className="mx-auto flex max-w-3xl items-center justify-between rounded-full border border-stone-200 bg-white px-2 py-2">
+                    <Link
+                        href={route('catalog.index')}
+                        className="rounded-full px-4 py-2 text-sm font-semibold text-stone-800 hover:bg-stone-100"
+                    >
+                        Courses
+                    </Link>
 
-                    <nav className="flex items-center gap-5 text-sm">
+                    <Link href={route('home')} aria-label="Gnotopia home" className="flex items-center gap-2">
+                        <LogoMark className="h-8 w-8" />
+                        <span className="hidden font-display text-lg font-bold text-brand-900 sm:inline">
+                            Gnotopia
+                        </span>
+                    </Link>
+
+                    <nav className="flex items-center gap-1">
                         {auth.user ? (
                             <Link
                                 href={route('dashboard')}
-                                className="rounded-md bg-brand-800 px-4 py-2 font-medium text-white hover:bg-brand-700"
+                                className="rounded-full bg-brand-800 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-700"
                             >
                                 Dashboard
                             </Link>
                         ) : (
                             <>
-                                <Link href={route('login')} className="font-medium text-stone-700 hover:text-brand-800">
+                                <Link
+                                    href={route('login')}
+                                    className="hidden rounded-full px-4 py-2 text-sm font-semibold text-stone-800 hover:bg-stone-100 sm:inline-flex"
+                                >
                                     Log in
                                 </Link>
                                 <Link
                                     href={route('register')}
-                                    className="rounded-md bg-brand-800 px-4 py-2 font-medium text-white hover:bg-brand-700"
+                                    className="rounded-full bg-brand-800 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-700"
                                 >
                                     Register
                                 </Link>
@@ -43,11 +53,7 @@ export default function PublicLayout({ children }) {
 
             <main className="flex-1">{children}</main>
 
-            <footer className="bg-brand-950 py-8 text-sm text-brand-200">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    © {new Date().getFullYear()} Gnotopia
-                </div>
-            </footer>
+            <SiteFooter />
         </div>
     );
 }
