@@ -8,12 +8,19 @@ export default function FlashMessages() {
     }
 
     return (
-        <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl space-y-3 px-4 pt-6 sm:px-6 lg:px-8">
             {flash.success && (
-                <div className="rounded-md bg-brand-50 p-4 text-sm text-brand-800">{flash.success}</div>
+                <div
+                    role="status"
+                    className="rounded-2xl border border-brand-200 bg-brand-50 p-4 text-sm font-medium text-brand-900"
+                >
+                    {flash.success}
+                </div>
             )}
             {flash.error && (
-                <div className="rounded-md bg-red-50 p-4 text-sm text-red-800">{flash.error}</div>
+                <div role="alert" className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+                    {flash.error}
+                </div>
             )}
         </div>
     );

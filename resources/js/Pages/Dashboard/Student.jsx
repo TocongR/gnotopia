@@ -17,14 +17,14 @@ export default function Student({ courses }) {
 
     return (
         <AuthenticatedLayout
-            header={<h2 className="font-display text-xl font-semibold text-stone-900">My learning</h2>}
+            header={<h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">My learning</h2>}
         >
             <Head title="My learning" />
 
             <div className="py-10">
                 <div className="mx-auto max-w-5xl space-y-6 px-4 sm:px-6 lg:px-8">
                     {courses.length === 0 ? (
-                        <div className="rounded-md border border-stone-200 bg-white p-8 text-center">
+                        <div className="rounded-2xl border border-stone-200 bg-white p-8 text-center">
                             <p className="text-stone-700">You have not enrolled in any courses yet.</p>
                             <Link href={route('catalog.index')} className={`${buttonPrimary} mt-4`}>
                                 Browse courses
@@ -40,7 +40,7 @@ export default function Student({ courses }) {
 
                             <ul className="space-y-4">
                                 {courses.map((course) => (
-                                    <li key={course.id} className="rounded-md border border-stone-200 bg-white p-5">
+                                    <li key={course.id} className="rounded-2xl border border-stone-200 bg-white p-5">
                                         <div className="flex flex-wrap items-start justify-between gap-4">
                                             <div>
                                                 <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">

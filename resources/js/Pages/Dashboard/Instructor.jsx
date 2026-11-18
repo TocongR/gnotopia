@@ -7,7 +7,7 @@ import { Head, Link } from '@inertiajs/react';
 export default function Instructor({ stats, courses, recent }) {
     return (
         <AuthenticatedLayout
-            header={<h2 className="font-display text-xl font-semibold text-stone-900">Instructor dashboard</h2>}
+            header={<h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">Instructor dashboard</h2>}
         >
             <Head title="Instructor dashboard" />
 
@@ -21,7 +21,7 @@ export default function Instructor({ stats, courses, recent }) {
                     </div>
 
                     {courses.length === 0 ? (
-                        <div className="rounded-md border border-stone-200 bg-white p-8 text-center">
+                        <div className="rounded-2xl border border-stone-200 bg-white p-8 text-center">
                             <p className="text-stone-700">You have not created any courses yet.</p>
                             <Link href={route('instructor.courses.create')} className={`${buttonPrimary} mt-4`}>
                                 Create your first course
@@ -40,7 +40,7 @@ export default function Instructor({ stats, courses, recent }) {
                                     </Link>
                                 </div>
 
-                                <div className="overflow-x-auto rounded-md border border-stone-200 bg-white">
+                                <div className="overflow-x-auto rounded-2xl border border-stone-200 bg-white">
                                     <table className="min-w-full divide-y divide-stone-200 text-sm">
                                         <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500">
                                             <tr>
@@ -79,11 +79,11 @@ export default function Instructor({ stats, courses, recent }) {
                                 </h3>
 
                                 {recent.length === 0 ? (
-                                    <p className="rounded-md border border-stone-200 bg-white p-4 text-sm text-stone-600">
+                                    <p className="rounded-2xl border border-stone-200 bg-white p-4 text-sm text-stone-600">
                                         No students have enrolled yet.
                                     </p>
                                 ) : (
-                                    <ul className="divide-y divide-stone-200 rounded-md border border-stone-200 bg-white">
+                                    <ul className="divide-y divide-stone-200 rounded-2xl border border-stone-200 bg-white">
                                         {recent.map((item) => (
                                             <li key={item.id} className="px-4 py-3 text-sm">
                                                 <p className="font-medium text-stone-900">{item.student}</p>

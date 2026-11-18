@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
 
 class LearningPath
 {
-    /** Load the course with its lessons and the quizzes that can be taken. */
+    // Load the course with its lessons and the quizzes that can be taken.
     public function load(Course $course): Course
     {
         $course->load([

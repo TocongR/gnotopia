@@ -17,13 +17,13 @@ export default function Create({ categories }) {
 
     return (
         <AuthenticatedLayout
-            header={<h2 className="text-xl font-semibold leading-tight text-stone-800">New Course</h2>}
+            header={<h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">New Course</h2>}
         >
             <Head title="New Course" />
 
             <div className="py-12">
                 <div className="mx-auto max-w-3xl sm:px-6 lg:px-8">
-                    <div className="bg-white p-6 shadow-sm sm:rounded-lg">
+                    <div className="bg-white p-6 border border-stone-200 sm:rounded-2xl">
                         <CourseForm
                             form={form}
                             categories={categories}

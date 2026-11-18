@@ -33,7 +33,7 @@ export default function QuizResult({ course, modules, progress, quiz, attempt, r
 
             <ol className="mt-4 space-y-4">
                 {review.map((item, index) => (
-                    <li key={item.question_id} className="rounded-md border border-stone-200 bg-white p-5">
+                    <li key={item.question_id} className="rounded-2xl border border-stone-200 bg-white p-5">
                         <p className="font-medium text-stone-900">
                             {index + 1}. {item.question}
                         </p>

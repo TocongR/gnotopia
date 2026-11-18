@@ -40,7 +40,7 @@ export default function Quiz({ course, modules, progress, quiz, attempts, prev, 
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 {quiz.questions.map((question, index) => (
-                    <fieldset key={question.id} className="rounded-md border border-stone-200 bg-white p-5">
+                    <fieldset key={question.id} className="rounded-2xl border border-stone-200 bg-white p-5">
                         <legend className="px-1 font-medium text-stone-900">
                             {index + 1}. {question.body}
                         </legend>
@@ -84,8 +84,8 @@ export default function Quiz({ course, modules, progress, quiz, attempts, prev, 
 
             {attempts.length > 0 && (
                 <section className="mt-10">
-                    <h2 className="font-display text-xl font-semibold text-stone-900">Your previous attempts</h2>
-                    <ul className="mt-3 divide-y divide-stone-200 rounded-md border border-stone-200 bg-white">
+                    <h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">Your previous attempts</h2>
+                    <ul className="mt-3 divide-y divide-stone-200 rounded-2xl border border-stone-200 bg-white">
                         {attempts.map((attempt) => (
                             <li key={attempt.id} className="flex items-center justify-between gap-4 px-4 py-3 text-sm">
                                 <span className="text-stone-700">

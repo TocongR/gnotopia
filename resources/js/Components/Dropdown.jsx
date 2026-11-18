@@ -1,104 +1,93 @@
-import { Transition } from '@headlessui/react';
 import { Link } from '@inertiajs/react';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 
-const DropDownContext = createContext();
+const DropdownContext = createContext(null);
 
-const Dropdown = ({ children }) => {
+function Dropdown({ children }) {
     const [open, setOpen] = useState(false);
+    const ref = useRef(null);
 
-    const toggleOpen = () => {
-        setOpen((previousState) => !previousState);
-    };
+    useEffect(() => {
+        if (!open) {
+            return undefined;
+        }
+
+        const onPointerDown = (event) => {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setOpen(false);
+            }
+        };
+        const onKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', onPointerDown);
+        document.addEventListener('keydown', onKeyDown);
+
+        return () => {
+            document.removeEventListener('mousedown', onPointerDown);
+            document.removeEventListener('keydown', onKeyDown);
+        };
+    }, [open]);
 
     return (
-        <DropDownContext.Provider value={{ open, setOpen, toggleOpen }}>
-            <div className="relative">{children}</div>
-        </DropDownContext.Provider>
+        <DropdownContext.Provider value={{ open, setOpen }}>
+            <div className="relative" ref={ref}>
+                {children}
+            </div>
+        </DropdownContext.Provider>
     );
-};
+}
 
-const Trigger = ({ children }) => {
-    const { open, setOpen, toggleOpen } = useContext(DropDownContext);
+function Trigger({ children, className = '' }) {
+    const { open, setOpen } = useContext(DropdownContext);
 
     return (
-        <>
-            <div onClick={toggleOpen}>{children}</div>
-
-            {open && (
-                <div
-                    className="fixed inset-0 z-40"
-                    onClick={() => setOpen(false)}
-                ></div>
-            )}
-        </>
+        <button
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded={open}
+            onClick={() => setOpen((value) => !value)}
+            className={`flex items-center gap-2 rounded-full border border-stone-200 bg-white py-1 pl-1 pr-3 text-left hover:bg-stone-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${className}`}
+        >
+            {children}
+        </button>
     );
-};
+}
 
-const Content = ({
-    align = 'right',
-    width = '48',
-    contentClasses = 'py-1 bg-white',
-    children,
-}) => {
-    const { open, setOpen } = useContext(DropDownContext);
+function Content({ align = 'right', children }) {
+    const { open, setOpen } = useContext(DropdownContext);
 
-    let alignmentClasses = 'origin-top';
-
-    if (align === 'left') {
-        alignmentClasses = 'ltr:origin-top-left rtl:origin-top-right start-0';
-    } else if (align === 'right') {
-        alignmentClasses = 'ltr:origin-top-right rtl:origin-top-left end-0';
+    if (!open) {
+        return null;
     }
 
-    let widthClasses = '';
-
-    if (width === '48') {
-        widthClasses = 'w-48';
-    }
-
     return (
-        <>
-            <Transition
-                show={open}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-            >
-                <div
-                    className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
-                    onClick={() => setOpen(false)}
-                >
-                    <div
-                        className={
-                            `rounded-md ring-1 ring-black ring-opacity-5 ` +
-                            contentClasses
-                        }
-                    >
-                        {children}
-                    </div>
-                </div>
-            </Transition>
-        </>
+        <div
+            role="menu"
+            onClick={() => setOpen(false)}
+            className={`absolute z-50 mt-2 w-60 rounded-2xl border border-stone-200 bg-white p-1.5 ${
+                align === 'left' ? 'left-0' : 'right-0'
+            }`}
+        >
+            {children}
+        </div>
     );
-};
+}
 
-const DropdownLink = ({ className = '', children, ...props }) => {
+function DropdownLink({ className = '', children, ...props }) {
     return (
         <Link
             {...props}
-            className={
-                'block w-full px-4 py-2 text-start text-sm leading-5 text-stone-700 transition duration-150 ease-in-out hover:bg-stone-100 focus:bg-stone-100 focus:outline-none ' +
-                className
-            }
+            role="menuitem"
+            className={`block w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-stone-800 hover:bg-stone-100 ${className}`}
         >
             {children}
         </Link>
     );
-};
+}
 
 Dropdown.Trigger = Trigger;
 Dropdown.Content = Content;

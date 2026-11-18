@@ -11,7 +11,7 @@ export default function Students({ course, students, totals }) {
             header={
                 <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                        <h2 className="font-display text-xl font-semibold text-stone-900">Students: {course.title}</h2>
+                        <h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">Students: {course.title}</h2>
                         <StatusBadge status={course.status} />
                     </div>
                     <Link href={route('instructor.courses.edit', course.id)} className="text-sm text-stone-600 hover:underline">
@@ -30,11 +30,11 @@ export default function Students({ course, students, totals }) {
                     </div>
 
                     {students.data.length === 0 ? (
-                        <p className="rounded-md border border-stone-200 bg-white p-6 text-stone-600">
+                        <p className="rounded-2xl border border-stone-200 bg-white p-6 text-stone-600">
                             No students have enrolled in this course yet.
                         </p>
                     ) : (
-                        <div className="overflow-x-auto rounded-md border border-stone-200 bg-white">
+                        <div className="overflow-x-auto rounded-2xl border border-stone-200 bg-white">
                             <table className="min-w-full divide-y divide-stone-200 text-sm">
                                 <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500">
                                     <tr>

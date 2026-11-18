@@ -5,7 +5,7 @@ export default function LessonViewer({ lesson }) {
         }
 
         return (
-            <div className="aspect-video overflow-hidden rounded-md border border-stone-200 bg-stone-900">
+            <div className="aspect-video overflow-hidden rounded-2xl border border-stone-200 bg-stone-900">
                 <iframe
                     src={lesson.embed_url}
                     title={lesson.title}
