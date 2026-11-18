@@ -1,11 +1,9 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
-export default forwardRef(function TextInput(
-    { type = 'text', className = '', isFocused = false, ...props },
-    ref,
-) {
+export default forwardRef(function TextInput({ type = 'text', className = '', isFocused = false, ...props }, ref) {
     const localRef = useRef(null);
 
+    // The Profile page calls ref.current.focus(), so keep this method.
     useImperativeHandle(ref, () => ({
         focus: () => localRef.current?.focus(),
     }));
@@ -20,11 +18,8 @@ export default forwardRef(function TextInput(
         <input
             {...props}
             type={type}
-            className={
-                'rounded-md border-stone-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 ' +
-                className
-            }
             ref={localRef}
+            className={`rounded-xl border-stone-300 text-stone-900 placeholder:text-stone-400 focus:border-brand-600 focus:ring-brand-600 ${className}`}
         />
     );
 });

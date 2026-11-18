@@ -8,7 +8,7 @@ export default function LearnShell({ course, modules, progress, currentKey, titl
         <AuthenticatedLayout
             header={
                 <div className="flex items-center justify-between gap-4">
-                    <h2 className="font-display text-xl font-semibold text-stone-900">{course.title}</h2>
+                    <h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">{course.title}</h2>
                     <Link href={route('student.dashboard')} className="text-sm text-stone-600 hover:underline">
                         My learning
                     </Link>
@@ -29,7 +29,7 @@ export default function LearnShell({ course, modules, progress, currentKey, titl
                     </div>
 
                     <aside className="space-y-4 lg:order-first lg:col-span-1">
-                        <div className="rounded-md border border-stone-200 bg-white p-4">
+                        <div className="rounded-2xl border border-stone-200 bg-white p-4">
                             <p className="text-sm font-medium text-stone-900">
                                 {progress.done} of {progress.total} steps complete
                             </p>

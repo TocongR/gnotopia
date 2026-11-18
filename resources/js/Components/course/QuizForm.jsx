@@ -93,7 +93,7 @@ export default function QuizForm({ form, onSubmit, submitLabel, cancelHref }) {
 
             <div className="space-y-4">
                 {data.questions.map((question, qIndex) => (
-                    <div key={qIndex} className="rounded-lg border border-stone-200 p-4">
+                    <div key={qIndex} className="rounded-2xl border border-stone-200 p-4">
                         <div className="flex items-start justify-between gap-3">
                             <InputLabel htmlFor={`question-${qIndex}`} value={`Question ${qIndex + 1}`} />
 
@@ -130,7 +130,7 @@ export default function QuizForm({ form, onSubmit, submitLabel, cancelHref }) {
                         <textarea
                             id={`question-${qIndex}`}
                             rows={2}
-                            className="mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-brand-500 focus:ring-brand-500"
+                            className="mt-1 block w-full rounded-xl border-stone-300 focus:border-brand-500 focus:ring-brand-500"
                             value={question.body}
                             onChange={(e) => updateQuestion(qIndex, { body: e.target.value })}
                         />

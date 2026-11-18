@@ -5,7 +5,7 @@ import { Head, Link, useForm, usePage } from '@inertiajs/react';
 const kindLabels = { article: 'Article', video: 'Video', quiz: 'Quiz' };
 
 const primaryLink =
-    'block rounded-md bg-brand-800 px-4 py-2 text-center text-sm font-medium text-white hover:bg-brand-700';
+    'block rounded-full bg-brand-800 px-4 py-2 text-center text-sm font-medium text-white hover:bg-brand-700';
 
 function EnrollPanel({ course, viewer, loggedIn }) {
     const form = useForm({});
@@ -84,14 +84,14 @@ export default function Show({ course, viewer }) {
             <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-3 lg:px-8">
                 <div className="space-y-10 lg:col-span-2">
                     <section>
-                        <h2 className="font-display text-xl font-semibold text-stone-900">About this course</h2>
+                        <h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">About this course</h2>
                         <p className="mt-3 whitespace-pre-line text-stone-700">
                             {course.description || 'No description yet.'}
                         </p>
                     </section>
 
                     <section>
-                        <h2 className="font-display text-xl font-semibold text-stone-900">Course content</h2>
+                        <h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">Course content</h2>
                         <p className="mt-1 text-sm text-stone-500">
                             {course.modules.length} module(s) · {course.lessons_count} lesson(s) · {course.quizzes_count}{' '}
                             quiz(zes)
@@ -101,7 +101,7 @@ export default function Show({ course, viewer }) {
                             {course.modules.map((courseModule, index) => (
                                 <details
                                     key={courseModule.id}
-                                    className="rounded-md border border-stone-200 bg-white"
+                                    className="rounded-2xl border border-stone-200 bg-white"
                                     open={index === 0}
                                 >
                                     <summary className="cursor-pointer px-4 py-3 font-semibold text-stone-900">
@@ -124,7 +124,7 @@ export default function Show({ course, viewer }) {
                 </div>
 
                 <aside>
-                    <div className="sticky top-6 rounded-md border border-stone-200 bg-white p-6">
+                    <div className="sticky top-6 rounded-2xl border border-stone-200 bg-white p-6">
                         <p className="font-display text-3xl font-semibold text-stone-900">
                             {formatPrice(course.price_cents)}
                         </p>

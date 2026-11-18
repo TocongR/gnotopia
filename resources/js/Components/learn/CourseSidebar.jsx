@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 
 export default function CourseSidebar({ modules, currentKey }) {
     return (
-        <nav aria-label="Course content" className="rounded-md border border-stone-200 bg-white">
+        <nav aria-label="Course content" className="rounded-2xl border border-stone-200 bg-white">
             {modules.map((courseModule, index) => (
                 <div key={courseModule.id} className="border-b border-stone-200 last:border-b-0">
                     <h3 className="bg-stone-50 px-4 py-3 text-sm font-semibold text-stone-900">

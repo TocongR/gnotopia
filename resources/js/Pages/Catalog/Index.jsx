@@ -30,11 +30,11 @@ export default function Index({ courses, categories, filters }) {
                         value={q}
                         onChange={(e) => setQ(e.target.value)}
                         placeholder="Search courses"
-                        className="w-full rounded-md border-stone-300 shadow-sm focus:border-brand-500 focus:ring-brand-500"
+                        className="w-full rounded-xl border-stone-300 focus:border-brand-500 focus:ring-brand-500"
                     />
                     <button
                         type="submit"
-                        className="rounded-md bg-brand-800 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-700"
+                        className="rounded-full bg-brand-800 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-700"
                     >
                         Search
                     </button>

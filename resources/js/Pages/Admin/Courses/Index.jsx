@@ -39,7 +39,7 @@ export default function Index({ courses, statuses, filters }) {
         }`;
 
     return (
-        <AuthenticatedLayout header={<h2 className="font-display text-xl font-semibold text-stone-900">Courses</h2>}>
+        <AuthenticatedLayout header={<h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">Courses</h2>}>
             <Head title="Courses" />
 
             <div className="py-10">
@@ -50,7 +50,7 @@ export default function Index({ courses, statuses, filters }) {
                             value={q}
                             onChange={(e) => setQ(e.target.value)}
                             placeholder="Search courses"
-                            className="w-full rounded-md border-stone-300 shadow-sm focus:border-brand-600 focus:ring-brand-600"
+                            className="w-full rounded-xl border-stone-300 focus:border-brand-600 focus:ring-brand-600"
                         />
                         <button type="submit" className={buttonPrimary}>
                             Search
@@ -74,11 +74,11 @@ export default function Index({ courses, statuses, filters }) {
                     </div>
 
                     {courses.data.length === 0 ? (
-                        <p className="rounded-md border border-stone-200 bg-white p-6 text-stone-600">
+                        <p className="rounded-2xl border border-stone-200 bg-white p-6 text-stone-600">
                             No courses match your search.
                         </p>
                     ) : (
-                        <div className="overflow-x-auto rounded-md border border-stone-200 bg-white">
+                        <div className="overflow-x-auto rounded-2xl border border-stone-200 bg-white">
                             <table className="min-w-full divide-y divide-stone-200 text-sm">
                                 <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500">
                                     <tr>

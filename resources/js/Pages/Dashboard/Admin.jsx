@@ -15,7 +15,7 @@ function Group({ title, children }) {
 export default function Admin({ users, courses, enrollments, completions }) {
     return (
         <AuthenticatedLayout
-            header={<h2 className="font-display text-xl font-semibold text-stone-900">Admin dashboard</h2>}
+            header={<h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">Admin dashboard</h2>}
         >
             <Head title="Admin dashboard" />
 

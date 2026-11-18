@@ -9,10 +9,10 @@ export default function Index({ courses }) {
         <AuthenticatedLayout
             header={
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold leading-tight text-stone-800">My Courses</h2>
+                    <h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">My Courses</h2>
                     <Link
                         href={route('instructor.courses.create')}
-                        className="rounded-md bg-brand-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white hover:bg-brand-700"
+                        className="rounded-full bg-brand-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white hover:bg-brand-700"
                     >
                         New course
                     </Link>
@@ -23,7 +23,7 @@ export default function Index({ courses }) {
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                    <div className="overflow-hidden bg-white border border-stone-200 sm:rounded-2xl">
                         {courses.data.length === 0 ? (
                             <p className="p-6 text-stone-600">You haven't created any courses yet.</p>
                         ) : (

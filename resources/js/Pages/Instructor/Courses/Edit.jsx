@@ -38,7 +38,7 @@ export default function Edit({ course, categories }) {
         <AuthenticatedLayout
             header={
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold leading-tight text-stone-800">Edit Course</h2>
+                    <h2 className="font-display text-2xl font-extrabold tracking-tight text-stone-900">Edit Course</h2>
                     <Link href={route('instructor.courses.index')} className="text-sm text-stone-600 hover:underline">
                         Back to my courses
                     </Link>
@@ -49,7 +49,7 @@ export default function Edit({ course, categories }) {
 
             <div className="py-12">
                 <div className="mx-auto grid max-w-7xl gap-6 sm:px-6 lg:grid-cols-3 lg:px-8">
-                    <div className="bg-white p-6 shadow-sm sm:rounded-lg lg:col-span-2">
+                    <div className="bg-white p-6 border border-stone-200 sm:rounded-2xl lg:col-span-2">
                         <CourseForm
                             form={form}
                             categories={categories}
@@ -59,7 +59,7 @@ export default function Edit({ course, categories }) {
                     </div>
 
                     <div className="space-y-6">
-                        <div className="bg-white p-6 shadow-sm sm:rounded-lg">
+                        <div className="bg-white p-6 border border-stone-200 sm:rounded-2xl">
                             <h3 className="font-semibold text-stone-900">Status</h3>
                             <div className="mt-2 flex items-center gap-2">
                                 <StatusBadge status={course.status} />
@@ -78,7 +78,7 @@ export default function Edit({ course, categories }) {
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 shadow-sm sm:rounded-lg">
+                        <div className="bg-white p-6 border border-stone-200 sm:rounded-2xl">
                             <h3 className="font-semibold text-stone-900">Content</h3>
                             <p className="mt-2 text-sm text-stone-600">{course.modules_count} module(s)</p>
                             <Link
@@ -89,7 +89,7 @@ export default function Edit({ course, categories }) {
                             </Link>
                         </div>
 
-                        <div className="bg-white p-6 shadow-sm sm:rounded-lg">
+                        <div className="bg-white p-6 border border-stone-200 sm:rounded-2xl">
                             <h3 className="font-semibold text-stone-900">Danger zone</h3>
                             <div className="mt-4">
                                 <DangerButton onClick={destroy}>Delete course</DangerButton>

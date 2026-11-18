@@ -48,7 +48,7 @@ export default function ModuleCard({ courseModule, index, total, onMove }) {
     };
 
     return (
-        <div className="overflow-hidden rounded-lg border border-stone-200 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-3 bg-stone-50 px-4 py-3">
                 {editing ? (
                     <form onSubmit={rename} className="flex flex-1 items-center gap-2">
